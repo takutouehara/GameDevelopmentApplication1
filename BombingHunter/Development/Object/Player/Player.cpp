@@ -1,12 +1,11 @@
 #include "Player.h"
 #include "../../Utility/InputControl.h"
+#include ""
 #include "DxLib.h"
 
 // コンストラクタ
-Player::Player():animation_count(0),filp_flag(FALSE)
+Player::Player():
 {
-	animation[0] = NULL;
-	animation[1] = NULL;
 }
 
 // デストラクタ

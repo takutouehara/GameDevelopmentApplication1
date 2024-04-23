@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <string>
 #include "../Object/GameObject.h"
 
 class Scene
@@ -19,6 +18,9 @@ public:
 	void Finalize();
 
 private:
+	// 当たり判定チェック処理
+	void HitCheckObject(GameObject* a, GameObject* b);
+
 	// オブジェクト生成処理
 	template <class T>
 	T* CreateObject(const Vector2D& location)
@@ -43,7 +45,7 @@ private:
 		// オブジェクトリストに追加
 		objects.push_back(new_object);
 
-		// インスタンスのポインタを返却
+		// ポインタを返却
 		return new_instance;
 	}
 };
