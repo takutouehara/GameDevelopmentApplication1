@@ -1,6 +1,11 @@
 #include "Scene.h"
 
 #include "../Object/Player/Player.h"
+#include "../Object/Enemy/BoxEnemy.h"
+#include "../Object/Enemy/WingEnemy.h"
+#include "../Object/Enemy/Harpy.h"
+#include "../Object/Enemy/GoldEnemy.h"
+
 
 // コンストラクタ
 Scene::Scene():objects()
@@ -18,7 +23,15 @@ Scene::~Scene()
 void Scene::Initialize()
 {
 	// プレイヤーを生成する
-	CreateObject<Player>(Vector2D(320.0f, 240.0f));
+	CreateObject<Player>(Vector2D(320.0f, 90.0f));
+	// BoxEnemyを生成する
+	CreateObject<BoxEnemy>(Vector2D(560.0f, 360.0f));
+	// WingEnemyを生成する
+	//CreateObject<WingEnemy>(Vector2D(420.0f, 360.0f));
+	// Harpyを生成する
+	//CreateObject<Harpy>(Vector2D(280.0f, 360.0f));
+	// GoldEnemyを生成する
+	//CreateObject<GoldEnemy>(Vector2D(140.0f, 360.0f));
 }
 
 // 更新処理

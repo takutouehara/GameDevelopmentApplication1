@@ -5,6 +5,7 @@
 char InputControl::now_key[D_KEYCODE_MAX] = {};
 char InputControl::old_key[D_KEYCODE_MAX] = {};
 
+// XVˆ—
 void InputControl::Update()
 {
 	memcpy(old_key, now_key, (sizeof(char) * D_KEYCODE_MAX));
@@ -12,16 +13,19 @@ void InputControl::Update()
 	GetHitKeyStateAll(now_key);
 }
 
+// ‰Ÿ‚µ‚Ä‚¢‚é‚©
 bool InputControl::GetKey(int key_code)
 {
 	return CheckKeyCodeRange(key_code) && ((now_key[key_code] == TRUE) && (old_key[key_code] == TRUE));
 }
 
+// ‰Ÿ‚µ‚½‚©
 bool InputControl::GetKeyDown(int key_code)
 {
 	return CheckKeyCodeRange(key_code) && ((now_key[key_code] == TRUE) && (old_key[key_code] == FALSE));
 }
 
+// —£‚µ‚½‚©
 bool InputControl::GetKeyUp(int key_code)
 {
 	return CheckKeyCodeRange(key_code) && ((now_key[key_code] == FALSE) && (old_key[key_code] == TRUE));

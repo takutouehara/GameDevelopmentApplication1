@@ -20,18 +20,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppMain.cpp" />
+    <ClCompile Include="Object\Enemy\GoldEnemy.cpp" />
+    <ClCompile Include="Object\Enemy\Harpy.cpp" />
+    <ClCompile Include="Object\Enemy\BoxEnemy.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Object\Player\Player.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
     <ClCompile Include="Utility\Vector2D.cpp" />
+    <ClCompile Include="Object\Enemy\WingEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Enemy\GoldEnemy.h" />
+    <ClInclude Include="Object\Enemy\Harpy.h" />
+    <ClInclude Include="Object\Enemy\BoxEnemy.h" />
     <ClInclude Include="Object\GameObject.h" />
     <ClInclude Include="Object\Player\Player.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Utility\InputControl.h" />
     <ClInclude Include="Utility\Vector2D.h" />
+    <ClInclude Include="Object\Enemy\WingEnemy.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

@@ -6,16 +6,16 @@
 class Scene
 {
 private:
-	std::vector<GameObject*> objects;
+	std::vector<GameObject*> objects;	// オブジェクトリスト
 
 public:
 	Scene();
 	~Scene();
 
-	void Initialize();
-	void Update();
-	void Draw()const;
-	void Finalize();
+	void Initialize();	// 初期化処理
+	void Update();		// 更新処理
+	void Draw()const;	// 描画処理
+	void Finalize();	// 終了時処理
 
 private:
 	// 当たり判定チェック処理

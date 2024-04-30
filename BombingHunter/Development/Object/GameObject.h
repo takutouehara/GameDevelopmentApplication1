@@ -2,6 +2,8 @@
 
 #include "../Utility/Vector2D.h"
 
+#define D_PIVOT_CENTER	// 座標の原点を画像の中心にする
+
 // ゲームオブジェクト基底クラス
 class GameObject
 {
@@ -28,5 +30,7 @@ public:
 	Vector2D GetLocation()const;
 	// 位置情報変更処理
 	void SetLocation(const Vector2D& location);
+	// 当たり判定の大きさを取得する
+	Vector2D GetBoxSize() const;
 };
 

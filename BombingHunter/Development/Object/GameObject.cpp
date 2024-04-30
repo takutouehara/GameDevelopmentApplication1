@@ -1,7 +1,8 @@
 #include "GameObject.h"
+#include "DxLib.h"
 
 // コンストラクタ
-GameObject::GameObject():location(0.0f),scale(0.0f),radian(0.0f),image(0),sound(0)
+GameObject::GameObject():location(0.0f),scale(0.0f),radian(0.0),image(NULL),sound(NULL)
 {
 }
 
@@ -47,4 +48,9 @@ Vector2D GameObject::GetLocation() const
 void GameObject::SetLocation(const Vector2D& location)
 {
 	this->location = location;
+}
+
+Vector2D GameObject::GetBoxSize() const
+{
+	return Vector2D();
 }
