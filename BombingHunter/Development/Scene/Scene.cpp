@@ -1,13 +1,16 @@
 #include "Scene.h"
-#include "../Object/"
-#include "../Object/Player/Player.h"
-#include "../Utility/InputControl.h"
 #include "DxLib.h"
+#include "../Utility/InputControl.h"
+#include "../Object/Player/Player.h"
+#include "../Object/Enemy/BoxEnemy.h"
+#include "../Object/Enemy/WingEnemy.h"
+#include "../Object/Enemy/Harpy.h"
+#include "../Object/Enemy/GoldEnemy.h"
 
 #define D_PIVOT_CENTER
 
 // コンストラクタ
-Scene::Scene():objects()
+Scene::Scene() :objects()
 {
 }
 
@@ -22,7 +25,15 @@ Scene::~Scene()
 void Scene::Initialize()
 {
 	// プレイヤーを生成する
-	CreateObject<Player>(Vector2D(320.0f, 240.0f));
+	CreateObject<Player>(Vector2D(320.0f, 90.0f));
+	// BoxEnemyを生成する
+	//CreateObject<BoxEnemy>(Vector2D(560.0f, 360.0f));
+	// WingEnemyを生成する
+	//CreateObject<WingEnemy>(Vector2D(420.0f, 360.0f));
+	// Harpyを生成する
+	//CreateObject<Harpy>(Vector2D(280.0f, 360.0f));
+	// GoldEnemyを生成する
+	//CreateObject<GoldEnemy>(Vector2D(140.0f, 360.0f));
 }
 
 // 更新処理
@@ -44,10 +55,25 @@ void Scene::Update()
 		}
 	}
 
-	// Zキーを押したら、敵を生成する
+	// Zキーを押したら敵を生成する
 	if (InputControl::GetKeyDown(KEY_INPUT_Z))
 	{
 		CreateObject<BoxEnemy>(Vector2D(100.0f, 400.0f));
+	}
+	// Xキーを押したら敵を生成する
+	if (InputControl::GetKeyDown(KEY_INPUT_X))
+	{
+		CreateObject<WingEnemy>(Vector2D(200.0f, 400.0f));
+	}
+	// Cキーを押したら敵を生成する
+	if (InputControl::GetKeyDown(KEY_INPUT_C))
+	{
+		CreateObject<Harpy>(Vector2D(300.0f, 400.0f));
+	}
+	// Vキーを押したら敵を生成する
+	if (InputControl::GetKeyDown(KEY_INPUT_V))
+	{
+		CreateObject<GoldEnemy>(Vector2D(400.0f, 400.0f));
 	}
 }
 
@@ -82,16 +108,14 @@ void Scene::Finalize()
 }
 
 #ifdef D_PIVOT_CENTER
-
+// 当たり判定チェック処理(単系の中心で当たり判定をとる)
 void Scene::HitCheckObject(GameObject* a, GameObject* b)
 {
 	// ２つのオブジェクトの距離を取得
 	Vector2D diff = a->GetLocation() - b->GetLocation();
-
 	// ２つのオブジェクトの当たり判定の大きさを取得
 	Vector2D box_size = (a->GetBoxSize() + b->GetBoxSize()) / 2.0f;
-
-	// 距離より大きさが大きい場合、HITとする
+	// 距離より大きさが大きい場合HITとする
 	if ((fabsf(diff.x) < box_size.x) && (fabsf(diff.y) < box_size.y))
 	{
 		// 当たったことをオブジェクトに通知する
@@ -100,5 +124,18 @@ void Scene::HitCheckObject(GameObject* a, GameObject* b)
 	}
 }
 #else
-
+// 当たり判定チェック処理(左上頂点の座標から当たり判定計算を行う)
+void Scene::HitCheckobject(GameObject* a, GameObject* b)
+{
+	// 右下頂点座標を取得する
+	Vector2D a_lower_right = a->GetLocation() + a->GetBoxSize();
+	Vector2D b_lower_right = b->GetLocation() + b->GetBoxSize();
+	// 短形Aと短形Bの位置関係を調べる
+	if ((a->GetLocation().x < b_lower_right.x) && (a->GetLocation().y < b_lower_right.y) && (a_lower_right.x > b->GetLocation().x) && (a_lower_right.y > b->GetLocation().y)) 
+	{
+		// オブジェクトに対してHIT判定を通知する
+		a->OnHitCollision(b);
+		b->OnHitCollision(a);
+	}
+}
 #endif // D_PIVOT_CENTER

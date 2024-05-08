@@ -1,11 +1,12 @@
 #include "Player.h"
 #include "../../Utility/InputControl.h"
-#include ""
 #include "DxLib.h"
 
 // コンストラクタ
-Player::Player():
+Player::Player() :animation_count(0), filp_flag(FALSE)
 {
+	animation[0] = NULL;
+	animation[1] = NULL;
 }
 
 // デストラクタ
@@ -30,7 +31,7 @@ void Player::Initialize()
 	radian = 0.0;
 
 	// 大きさの設定
-	scale = 64.0;
+	box_size = 64.0;
 
 	// 初期画像の設定
 	image = animation[0];
@@ -49,13 +50,13 @@ void Player::Update()
 void Player::Draw() const
 {
 	// プレイヤー画像の描画
-	DrawRotaGraph(location.x, location.y, 1.0, radian, image, TRUE, filp_flag);
+	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, filp_flag);
 
-// デバッグ用
+	// デバッグ用
 #if _DEBUG
 	// 当たり判定の可視化
-	Vector2D box_collision_upper_left = location - (Vector2D(1.0f) * (float)scale / 2.0f);
-	Vector2D box_collision_lower_right = location + (Vector2D(1.0f) * (float)scale / 2.0f);
+	Vector2D box_collision_upper_left = location - (box_size / 2.0f);
+	Vector2D box_collision_lower_right = location + (box_size / 2.0f);
 
 	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y, box_collision_lower_right.x, box_collision_lower_right.y, GetColor(255, 0, 0), FALSE);
 #endif
@@ -113,7 +114,7 @@ void Player::AnimeControl()
 	{
 		// カウントのリセット
 		animation_count = 0;
-		
+
 		// 画像の切り替え
 		if (image == animation[0])
 		{

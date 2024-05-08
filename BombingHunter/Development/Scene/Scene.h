@@ -6,16 +6,16 @@
 class Scene
 {
 private:
-	std::vector<GameObject*> objects;	// オブジェクトリスト
+	std::vector<GameObject*> objects;
 
 public:
 	Scene();
 	~Scene();
 
-	void Initialize();	// 初期化処理
-	void Update();		// 更新処理
-	void Draw()const;	// 描画処理
-	void Finalize();	// 終了時処理
+	void Initialize();
+	void Update();
+	void Draw()const;
+	void Finalize();
 
 private:
 	// 当たり判定チェック処理
@@ -31,21 +31,22 @@ private:
 		GameObject* new_object = dynamic_cast<GameObject*>(new_instance);
 
 		// エラーチェック
-		if(new_object==nullptr)
+		if (new_object == nullptr)
 		{
 			delete new_instance;
-			throw std::string("ゲームオブジェクトが生成できませんでした");
+			throw ("ゲームオブジェクトが生成できませんでした\n");
 		}
 
 		// 初期化処理
 		new_object->Initialize();
+
 		// 位置情報の設定
 		new_object->SetLocation(location);
 
 		// オブジェクトリストに追加
 		objects.push_back(new_object);
 
-		// ポインタを返却
+		// オブジェクトのポインタを返却
 		return new_instance;
 	}
 };

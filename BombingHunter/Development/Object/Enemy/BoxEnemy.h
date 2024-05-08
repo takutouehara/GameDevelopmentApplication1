@@ -2,7 +2,7 @@
 
 #include "../GameObject.h"
 
-class BoxEnemy :public GameObject
+class BoxEnemy:public GameObject
 {
 private:
 	int animation[2];		// アニメーション画像

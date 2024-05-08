@@ -1,29 +1,35 @@
-#include "Harpy.h"
+#include "GoldEnemy.h"
 #include "DxLib.h"
 
 // コンストラクタ
-Harpy::Harpy() :animation_count(0), direction(0.0f)
+GoldEnemy::GoldEnemy() :animation_count(0), direction(0.0f)
 {
 	animation[0] = NULL;
 	animation[1] = NULL;
+	animation[2] = NULL;
+	animation[3] = NULL;
+	animation[4] = NULL;
 }
 
 // デストラクタ
-Harpy::~Harpy()
+GoldEnemy::~GoldEnemy()
 {
 }
 
 // 初期化処理
-void Harpy::Initialize()
+void GoldEnemy::Initialize()
 {
 	// 画像の読み込み
-	animation[0] = LoadGraph("Resource/Images/Harpy/1.png");
-	animation[1] = LoadGraph("Resource/Images/Harpy/2.png");
+	animation[0] = LoadGraph("Resource/Images/GoldEnemy/1.png");
+	animation[1] = LoadGraph("Resource/Images/GoldEnemy/2.png");
+	animation[2] = LoadGraph("Resource/Images/GoldEnemy/3.png");
+	animation[3] = LoadGraph("Resource/Images/GoldEnemy/4.png");
+	animation[4] = LoadGraph("Resource/Images/GoldEnemy/5.png");
 
 	// エラーチェック
 	if (animation[0] == -1 || animation[1] == -1)
 	{
-		throw("ハーピーの画像がありません。");
+		throw("ダイヤテキの画像がありません。");
 	}
 
 	// 向きの設定
@@ -40,7 +46,7 @@ void Harpy::Initialize()
 }
 
 // 更新処理
-void Harpy::Update()
+void GoldEnemy::Update()
 {
 	// 移動処理
 	Movement();
@@ -50,7 +56,7 @@ void Harpy::Update()
 }
 
 // 描画処理
-void Harpy::Draw() const
+void GoldEnemy::Draw() const
 {
 	// 画像反転
 	int flip_flag = FALSE;
@@ -73,22 +79,25 @@ void Harpy::Draw() const
 }
 
 // 終了時処理
-void Harpy::Finalize()
+void GoldEnemy::Finalize()
 {
 	// 使用した画像を開放する
 	DeleteGraph(animation[0]);
 	DeleteGraph(animation[1]);
+	DeleteGraph(animation[2]);
+	DeleteGraph(animation[3]);
+	DeleteGraph(animation[4]);
 }
 
 // 当たり判定通知処理
-void Harpy::OnHitCollision(GameObject* hit_obhect)
+void GoldEnemy::OnHitCollision(GameObject* hit_obhect)
 {
 	// 当たった時の処理
 	direction = 0.0f;
 }
 
 // 移動処理
-void Harpy::Movement()
+void GoldEnemy::Movement()
 {
 	// 画面端に到達したら進行方向を反転する
 	if (((location.x + direction.x) < box_size.x) || (640.0f - box_size.x) < (location.x + direction.x))
@@ -104,7 +113,7 @@ void Harpy::Movement()
 }
 
 // アニメーション制御処理
-void Harpy::AnimeControl()
+void GoldEnemy::AnimeControl()
 {
 	// フレームカウントを加算する
 	animation_count++;
@@ -115,6 +124,7 @@ void Harpy::AnimeControl()
 		// カウントのリセット
 		animation_count = 0;
 
+		/*
 		// 画像の切り替え
 		if (image == animation[0])
 		{
@@ -124,5 +134,19 @@ void Harpy::AnimeControl()
 		{
 			image = animation[0];
 		}
+		*/
+		if (image == animation[0])
+		{
+			int i = 1;
+			for (i = i; i < 5; i++)
+			{
+				image = animation[i];
+			}
+		}
+		else if (image == animation[4])
+		{
+			image = animation[0];
+		}
+		
 	}
 }

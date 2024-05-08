@@ -1,29 +1,29 @@
-#include "Harpy.h"
+#include "BoxEnemy.h"
 #include "DxLib.h"
 
 // コンストラクタ
-Harpy::Harpy() :animation_count(0), direction(0.0f)
+BoxEnemy::BoxEnemy() :animation_count(0), direction(0.0f)
 {
 	animation[0] = NULL;
 	animation[1] = NULL;
 }
 
 // デストラクタ
-Harpy::~Harpy()
+BoxEnemy::~BoxEnemy()
 {
 }
 
 // 初期化処理
-void Harpy::Initialize()
+void BoxEnemy::Initialize()
 {
 	// 画像の読み込み
-	animation[0] = LoadGraph("Resource/Images/Harpy/1.png");
-	animation[1] = LoadGraph("Resource/Images/Harpy/2.png");
+	animation[0] = LoadGraph("Resource/Images/BoxEnemy/1.png");
+	animation[1] = LoadGraph("Resource/Images/BoxEnemy/2.png");
 
 	// エラーチェック
 	if (animation[0] == -1 || animation[1] == -1)
 	{
-		throw("ハーピーの画像がありません。");
+		throw("ハコテキの画像がありません。");
 	}
 
 	// 向きの設定
@@ -40,7 +40,7 @@ void Harpy::Initialize()
 }
 
 // 更新処理
-void Harpy::Update()
+void BoxEnemy::Update()
 {
 	// 移動処理
 	Movement();
@@ -50,7 +50,7 @@ void Harpy::Update()
 }
 
 // 描画処理
-void Harpy::Draw() const
+void BoxEnemy::Draw() const
 {
 	// 画像反転
 	int flip_flag = FALSE;
@@ -67,13 +67,13 @@ void Harpy::Draw() const
 
 	// エネミー画像の描画
 	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
-
+	
 	// 親クラスの描画処理を呼び出す
 	__super::Draw();
 }
 
 // 終了時処理
-void Harpy::Finalize()
+void BoxEnemy::Finalize()
 {
 	// 使用した画像を開放する
 	DeleteGraph(animation[0]);
@@ -81,14 +81,14 @@ void Harpy::Finalize()
 }
 
 // 当たり判定通知処理
-void Harpy::OnHitCollision(GameObject* hit_obhect)
+void BoxEnemy::OnHitCollision(GameObject* hit_obhect)
 {
 	// 当たった時の処理
 	direction = 0.0f;
 }
 
 // 移動処理
-void Harpy::Movement()
+void BoxEnemy::Movement()
 {
 	// 画面端に到達したら進行方向を反転する
 	if (((location.x + direction.x) < box_size.x) || (640.0f - box_size.x) < (location.x + direction.x))
@@ -104,7 +104,7 @@ void Harpy::Movement()
 }
 
 // アニメーション制御処理
-void Harpy::AnimeControl()
+void BoxEnemy::AnimeControl()
 {
 	// フレームカウントを加算する
 	animation_count++;

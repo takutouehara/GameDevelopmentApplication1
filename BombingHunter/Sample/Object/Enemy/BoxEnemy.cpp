@@ -1,9 +1,8 @@
 #include "BoxEnemy.h"
-#include "../../Utility/Vector2D.h"
 #include "DxLib.h"
 
 // コンストラクタ
-BoxEnemy::BoxEnemy() :animation_count(0), filp_flag(FALSE)
+BoxEnemy::BoxEnemy() :animation_count(0), direction(0.0f)
 {
 	animation[0] = NULL;
 	animation[1] = NULL;
@@ -31,18 +30,21 @@ void BoxEnemy::Initialize()
 	radian = 0.0;
 
 	// 大きさの設定
-	scale = 64.0;
+	box_size = 64.0;
 
 	// 初期画像の設定
 	image = animation[0];
 
-	// 移動処理
-	Movement();
+	// 初期進行方向の設定
+	direction = Vector2D(1.0f, -0.5f);
 }
 
 // 更新処理
 void BoxEnemy::Update()
 {
+	// 移動処理
+	Movement();
+
 	// アニメーション制御
 	AnimeControl();
 }
@@ -50,8 +52,24 @@ void BoxEnemy::Update()
 // 描画処理
 void BoxEnemy::Draw() const
 {
+	// 画像反転
+	int flip_flag = FALSE;
+
+	// 進行方向によって、反転状態を決定する
+	if (direction.x > 0.0f)
+	{
+		flip_flag = FALSE;
+	}
+	else
+	{
+		flip_flag = TRUE;
+	}
+
 	// エネミー画像の描画
-	DrawRotaGraph(location.x, location.y, 1.0, radian, image, TRUE, filp_flag);
+	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
+
+	// 親クラスの描画処理を呼び出す
+	__super::Draw();
 }
 
 // 終了時処理
@@ -66,6 +84,23 @@ void BoxEnemy::Finalize()
 void BoxEnemy::OnHitCollision(GameObject* hit_obhect)
 {
 	// 当たった時の処理
+	direction = 0.0f;
+}
+
+// 移動処理
+void BoxEnemy::Movement()
+{
+	// 画面端に到達したら進行方向を反転する
+	if (((location.x + direction.x) < box_size.x) || (640.0f - box_size.x) < (location.x + direction.x))
+	{
+		direction.x *= -1.0f;
+	}
+	if (((location.y + direction.y) < box_size.y) || (480.0f - box_size.y) < (location.y + direction.y))
+	{
+		direction.y *= -1.0f;
+	}
+	// 進行方向に向かって位置座標を変更する
+	location += direction;
 }
 
 // アニメーション制御処理
@@ -74,8 +109,8 @@ void BoxEnemy::AnimeControl()
 	// フレームカウントを加算する
 	animation_count++;
 
-	// 60フレーム目に到達したら
-	if (animation_count >= 60)
+	// 30フレーム目に到達したら
+	if (animation_count >= 30)
 	{
 		// カウントのリセット
 		animation_count = 0;
@@ -89,18 +124,5 @@ void BoxEnemy::AnimeControl()
 		{
 			image = animation[0];
 		}
-	}
-}
-
-// 移動処理
-void BoxEnemy::Movement()
-{
-	if (location.x >= 640.0f)
-	{
-		location.x += -10.0f;
-	}
-	else if (location.x <= 0.0f)
-	{
-		location.x += 1.0f;
 	}
 }

@@ -1,6 +1,7 @@
 #include "InputControl.h"
 #include "DxLib.h"
 
+// Ã“Iƒƒ“ƒo•Ï”’è‹`
 char InputControl::now_key[D_KEYCODE_MAX] = {};
 char InputControl::old_key[D_KEYCODE_MAX] = {};
 

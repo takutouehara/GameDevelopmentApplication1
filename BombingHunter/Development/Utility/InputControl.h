@@ -9,11 +9,11 @@ private:
 	static char old_key[D_KEYCODE_MAX];
 
 public:
-	static void Update();	// 更新処理
+	static void Update();
 
-	static bool GetKey(int key_code);		// 押しているか
-	static bool GetKeyDown(int key_code);	// 押したか
-	static bool GetKeyUp(int key_code);		// 離したか
+	static bool GetKey(int key_code);
+	static bool GetKeyDown(int key_code);
+	static bool GetKeyUp(int key_code);
 
 private:
 	// キーコード範囲チェック

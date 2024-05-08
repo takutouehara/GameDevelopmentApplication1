@@ -2,7 +2,7 @@
 
 #include "../GameObject.h"
 
-class Player:public GameObject
+class Player :public GameObject
 {
 private:
 	int animation[2];		// アニメーション画像

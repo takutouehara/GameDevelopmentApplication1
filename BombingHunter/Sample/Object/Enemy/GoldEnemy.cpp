@@ -2,7 +2,7 @@
 #include "DxLib.h"
 
 // コンストラクタ
-GoldEnemy::GoldEnemy() :animation_count(0), filp_flag(FALSE)
+GoldEnemy::GoldEnemy() :animation_count(0), direction(0.0f)
 {
 	animation[0] = NULL;
 	animation[1] = NULL;
@@ -36,23 +36,46 @@ void GoldEnemy::Initialize()
 	radian = 0.0;
 
 	// 大きさの設定
-	scale = 64.0;
+	box_size = 64.0;
 
 	// 初期画像の設定
 	image = animation[0];
+
+	// 初期進行方向の設定
+	direction = Vector2D(1.0f, -0.5f);
 }
 
 // 更新処理
 void GoldEnemy::Update()
 {
-	AnimeControl();	// アニメーション制御
+	// 移動処理
+	Movement();
+
+	// アニメーション制御
+	AnimeControl();
 }
 
 // 描画処理
 void GoldEnemy::Draw() const
 {
+	// 画像反転
+	int flip_flag = FALSE;
+
+	// 進行方向によって、反転状態を決定する
+	if (direction.x > 0.0f)
+	{
+		flip_flag = FALSE;
+	}
+	else
+	{
+		flip_flag = TRUE;
+	}
+
 	// エネミー画像の描画
-	DrawRotaGraph(location.x, location.y, 1.0, radian, image, TRUE, filp_flag);
+	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
+
+	// 親クラスの描画処理を呼び出す
+	__super::Draw();
 }
 
 // 終了時処理
@@ -70,6 +93,23 @@ void GoldEnemy::Finalize()
 void GoldEnemy::OnHitCollision(GameObject* hit_obhect)
 {
 	// 当たった時の処理
+	direction = 0.0f;
+}
+
+// 移動処理
+void GoldEnemy::Movement()
+{
+	// 画面端に到達したら進行方向を反転する
+	if (((location.x + direction.x) < box_size.x) || (640.0f - box_size.x) < (location.x + direction.x))
+	{
+		direction.x *= -1.0f;
+	}
+	if (((location.y + direction.y) < box_size.y) || (480.0f - box_size.y) < (location.y + direction.y))
+	{
+		direction.y *= -1.0f;
+	}
+	// 進行方向に向かって位置座標を変更する
+	location += direction;
 }
 
 // アニメーション制御処理
@@ -78,8 +118,8 @@ void GoldEnemy::AnimeControl()
 	// フレームカウントを加算する
 	animation_count++;
 
-	// 60フレーム目に到達したら
-	if (animation_count >= 60)
+	// 30フレーム目に到達したら
+	if (animation_count >= 30)
 	{
 		// カウントのリセット
 		animation_count = 0;
@@ -97,7 +137,7 @@ void GoldEnemy::AnimeControl()
 		*/
 		if (image == animation[0])
 		{
-			for (int i = 0; i < 5; i++)
+			for (int i = 1; i < 5; i++)
 			{
 				image = animation[i];
 			}
@@ -106,6 +146,6 @@ void GoldEnemy::AnimeControl()
 		{
 			image = animation[0];
 		}
-		
+
 	}
 }
