@@ -6,6 +6,8 @@
 #include "../Object/Enemy/WingEnemy.h"
 #include "../Object/Enemy/Harpy.h"
 #include "../Object/Enemy/GoldEnemy.h"
+#include "../Object/Enemy/EnemyBullet.h"
+#include "../Object/Player/PlayerBullet.h"
 
 #define D_PIVOT_CENTER
 
@@ -26,14 +28,6 @@ void Scene::Initialize()
 {
 	// プレイヤーを生成する
 	CreateObject<Player>(Vector2D(320.0f, 90.0f));
-	// BoxEnemyを生成する
-	//CreateObject<BoxEnemy>(Vector2D(560.0f, 360.0f));
-	// WingEnemyを生成する
-	//CreateObject<WingEnemy>(Vector2D(420.0f, 360.0f));
-	// Harpyを生成する
-	//CreateObject<Harpy>(Vector2D(280.0f, 360.0f));
-	// GoldEnemyを生成する
-	//CreateObject<GoldEnemy>(Vector2D(140.0f, 360.0f));
 }
 
 // 更新処理
@@ -74,6 +68,16 @@ void Scene::Update()
 	if (InputControl::GetKeyDown(KEY_INPUT_V))
 	{
 		CreateObject<GoldEnemy>(Vector2D(400.0f, 400.0f));
+	}
+	// Bキーを押したら敵を生成する
+	if (InputControl::GetKeyDown(KEY_INPUT_B))
+	{
+		CreateObject<EnemyBullet>(Vector2D(500.0f, 400.0f));
+	}
+	// Eキーを押したら敵を生成する
+	if (InputControl::GetKeyDown(KEY_INPUT_E))
+	{
+		CreateObject<PlayerBullet>(Vector2D(400.0f, 90.0f));
 	}
 }
 
