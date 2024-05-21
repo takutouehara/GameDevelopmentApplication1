@@ -12,8 +12,17 @@
 #define D_PIVOT_CENTER
 
 // コンストラクタ
-Scene::Scene() :objects()
+Scene::Scene() :objects(),background(NULL)
 {
+	// 背景画像の読み込み
+	background = LoadGraph("Resource/images/BackGround.png");
+	// エラーチェック
+	if (background == -1)
+	{
+		throw("背景の画像がありません。");
+	}
+	// 背景画像の設定
+	image = background;
 }
 
 // デストラクタ
@@ -26,6 +35,8 @@ Scene::~Scene()
 // 初期化処理
 void Scene::Initialize()
 {
+	// 背景の生成
+	DrawGraph(0, 0, image, TRUE);
 	// プレイヤーを生成する
 	CreateObject<Player>(Vector2D(320.0f, 90.0f));
 }
@@ -52,29 +63,29 @@ void Scene::Update()
 	// Zキーを押したら敵を生成する
 	if (InputControl::GetKeyDown(KEY_INPUT_Z))
 	{
-		CreateObject<BoxEnemy>(Vector2D(100.0f, 400.0f));
+		CreateObject<BoxEnemy>(Vector2D(150.0f, 600.0f));
 	}
 	// Xキーを押したら敵を生成する
 	if (InputControl::GetKeyDown(KEY_INPUT_X))
 	{
-		CreateObject<WingEnemy>(Vector2D(200.0f, 400.0f));
+		CreateObject<WingEnemy>(Vector2D(300.0f, 600.0f));
 	}
 	// Cキーを押したら敵を生成する
 	if (InputControl::GetKeyDown(KEY_INPUT_C))
 	{
-		CreateObject<Harpy>(Vector2D(300.0f, 400.0f));
+		CreateObject<Harpy>(Vector2D(450.0f, 600.0f));
 	}
 	// Vキーを押したら敵を生成する
 	if (InputControl::GetKeyDown(KEY_INPUT_V))
 	{
-		CreateObject<GoldEnemy>(Vector2D(400.0f, 400.0f));
+		CreateObject<GoldEnemy>(Vector2D(600.0f, 600.0f));
 	}
-	// Bキーを押したら敵を生成する
+	// Bキーを押したらエネミーバレットする
 	if (InputControl::GetKeyDown(KEY_INPUT_B))
 	{
-		CreateObject<EnemyBullet>(Vector2D(500.0f, 400.0f));
+		CreateObject<EnemyBullet>(Vector2D(750.0f, 600.0f));
 	}
-	// Eキーを押したら敵を生成する
+	// Eキーを押したらプレイヤーバレットする
 	if (InputControl::GetKeyDown(KEY_INPUT_E))
 	{
 		CreateObject<PlayerBullet>(Vector2D(400.0f, 90.0f));

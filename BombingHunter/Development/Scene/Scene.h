@@ -3,10 +3,11 @@
 #include <vector>
 #include "../Object/GameObject.h"
 
-class Scene
+class Scene:public GameObject
 {
 private:
 	std::vector<GameObject*> objects;
+	int background;		// îwåi
 
 public:
 	Scene();

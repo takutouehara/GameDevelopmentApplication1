@@ -91,17 +91,20 @@ void PlayerBullet::OnHitCollision(GameObject* hit_obhect)
 {
 	// 当たった時の処理
 	direction = 0.0f;
+
+	// 
+	image == animation[1];
 }
 
 // 移動処理
 void PlayerBullet::Movement()
 {
 	// 画面端に到達したら進行方向を反転する
-	if (((location.x + direction.x) < box_size.x) || (640.0f - box_size.x) < (location.x + direction.x))
+	if (((location.x + direction.x) < box_size.x) || (960.0f - box_size.x) < (location.x + direction.x))
 	{
 		direction.x *= -1.0f;
 	}
-	if (((location.y + direction.y) < box_size.y) || (480.0f - box_size.y) < (location.y + direction.y))
+	if (((location.y + direction.y) < box_size.y) || (720.0f - box_size.y) < (location.y + direction.y))
 	{
 		direction.y *= -1.0f;
 	}
