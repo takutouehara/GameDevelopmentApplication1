@@ -10,6 +10,10 @@ private:
 	int filp_flag;			// 反転プラグ
 
 public:
+	static float player_x;	// PlayerX座標
+	static float player_y;	// PlayerY座標
+
+public:
 	Player();
 	~Player();
 

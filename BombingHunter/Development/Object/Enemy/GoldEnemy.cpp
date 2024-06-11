@@ -42,7 +42,7 @@ void GoldEnemy::Initialize()
 	image = animation[0];
 
 	// 初期進行方向の設定
-	direction = Vector2D(1.0f, -0.5f);
+	direction = Vector2D(1.0f, 0.0f);
 }
 
 // 更新処理
@@ -93,7 +93,7 @@ void GoldEnemy::Finalize()
 void GoldEnemy::OnHitCollision(GameObject* hit_obhect)
 {
 	// 当たった時の処理
-	direction = 0.0f;
+	//direction = 0.0f;
 }
 
 // 移動処理
@@ -123,15 +123,7 @@ void GoldEnemy::AnimeControl()
 	{
 		// カウントのリセット
 		animation_count = 0;
-		
-		// 画像の切り替え
-		if (image == animation[0])
-		{
-			image = animation[1];
-		}
-		else
-		{
-			image = animation[0];
-		}
+
+
 	}
 }

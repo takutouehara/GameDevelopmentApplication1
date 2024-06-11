@@ -140,6 +140,7 @@
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Object\Player\Player.cpp" />
     <ClCompile Include="Object\Player\PlayerBullet.cpp" />
+    <ClCompile Include="Scene\Result.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Utility\InputControl.cpp" />
     <ClCompile Include="Utility\Vector2D.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Object\GameObject.h" />
     <ClInclude Include="Object\Player\Player.h" />
     <ClInclude Include="Object\Player\PlayerBullet.h" />
+    <ClInclude Include="Scene\Result.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Utility\InputControl.h" />
     <ClInclude Include="Utility\Vector2D.h" />

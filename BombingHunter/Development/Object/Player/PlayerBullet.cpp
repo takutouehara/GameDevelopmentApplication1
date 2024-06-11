@@ -40,7 +40,7 @@ void PlayerBullet::Initialize()
 	image = animation[0];
 
 	// 初期進行方向の設定
-	direction = Vector2D(1.0f, 0.5f);
+	direction = Vector2D(1.0f, 5.0f);
 }
 
 // 更新処理
@@ -48,9 +48,6 @@ void PlayerBullet::Update()
 {
 	// 移動処理
 	Movement();
-
-	// アニメーション制御
-	AnimeControl();
 }
 
 // 描画処理
@@ -70,7 +67,7 @@ void PlayerBullet::Draw() const
 	}
 
 	// エネミー画像の描画
-	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
+	DrawRotaGraphF(location.x, location.y, 0.6, radian, image, TRUE, flip_flag);
 
 	// 親クラスの描画処理を呼び出す
 	__super::Draw();
@@ -92,8 +89,11 @@ void PlayerBullet::OnHitCollision(GameObject* hit_obhect)
 	// 当たった時の処理
 	direction = 0.0f;
 
-	// 
-	image == animation[1];
+	// アニメーション制御
+	AnimeControl();
+
+	//DeleteGraph(animation[0]);
+	//DeleteGraph(animation[1]);
 }
 
 // 移動処理
@@ -119,9 +119,15 @@ void PlayerBullet::AnimeControl()
 	animation_count++;
 
 	// 30フレーム目に到達したら
-	if (animation_count >= 30)
+	if (animation_count >= 5)
 	{
 		// カウントのリセット
 		animation_count = 0;
+
+		// 画像の切り替え
+		if (image == animation[0])
+		{
+			image = animation[1];
+		}
 	}
 }

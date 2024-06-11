@@ -36,7 +36,7 @@ void WingEnemy::Initialize()
 	image = animation[0];
 
 	// 初期進行方向の設定
-	direction = Vector2D(1.0f, -0.5f);
+	direction = Vector2D(1.0f, 0.0f);
 }
 
 // 更新処理
@@ -66,7 +66,7 @@ void WingEnemy::Draw() const
 	}
 
 	// エネミー画像の描画
-	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
+	DrawRotaGraphF(location.x, location.y, 0.55, radian, image, TRUE, flip_flag);
 
 	// 親クラスの描画処理を呼び出す
 	__super::Draw();
@@ -84,7 +84,7 @@ void WingEnemy::Finalize()
 void WingEnemy::OnHitCollision(GameObject* hit_obhect)
 {
 	// 当たった時の処理
-	direction = 0.0f;
+	//direction = 0.0f;
 }
 
 // 移動処理

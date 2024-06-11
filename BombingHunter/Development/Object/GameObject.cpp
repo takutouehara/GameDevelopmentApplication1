@@ -24,6 +24,7 @@ void GameObject::Update()
 // •`‰æˆ—
 void GameObject::Draw() const
 {
+	
 	// “–‚½‚è”»’è‚Ì‰Â‹‰»
 #ifdef D_PIVOT_CENTER
 	Vector2D tl = location - (box_size / 2.0f);
@@ -36,7 +37,7 @@ void GameObject::Draw() const
 
 	DrawBoxAA(tl.x, ti.y, br.x, br.y, GetColor(255, 0, 0), FALSE);
 #endif // D_PIVOT_CENTER
-
+	
 }
 
 // I—¹ˆ—
@@ -48,7 +49,6 @@ void GameObject::Finalize()
 void GameObject::OnHitCollision(GameObject* hit_object)
 {
 	// “–‚½‚Á‚½‚És‚¤ˆ—
-
 }
 
 // ˆÊ’uî•ñæ“¾ˆ—

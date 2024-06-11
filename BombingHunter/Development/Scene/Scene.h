@@ -7,7 +7,9 @@ class Scene:public GameObject
 {
 private:
 	std::vector<GameObject*> objects;
-	int background;		// ”wŒi
+	int background;			// ”wŒi
+	static int BulletCount;	// ’e‚ÌoŒ»”
+	static int EnemyCount;	// “G‚ÌoŒ»”
 
 public:
 	Scene();

@@ -8,21 +8,20 @@
 #include "../Object/Enemy/GoldEnemy.h"
 #include "../Object/Enemy/EnemyBullet.h"
 #include "../Object/Player/PlayerBullet.h"
+#include "Result.h"
 
 #define D_PIVOT_CENTER
+
+// 静的メンバ変数宣言
+int Scene::EnemyCount = 0;
+int Scene::BulletCount = 0;
+// ローカル変数宣言
+Result* result = new Result();
 
 // コンストラクタ
 Scene::Scene() :objects(),background(NULL)
 {
-	// 背景画像の読み込み
-	background = LoadGraph("Resource/images/BackGround.png");
-	// エラーチェック
-	if (background == -1)
-	{
-		throw("背景の画像がありません。");
-	}
-	// 背景画像の設定
-	image = background;
+	
 }
 
 // デストラクタ
@@ -35,10 +34,19 @@ Scene::~Scene()
 // 初期化処理
 void Scene::Initialize()
 {
-	// 背景の生成
-	DrawGraph(0, 0, image, TRUE);
 	// プレイヤーを生成する
-	CreateObject<Player>(Vector2D(320.0f, 90.0f));
+	CreateObject<Player>(Vector2D(Player::player_x, Player::player_y));
+
+	// UIを表示する
+	result->Initialize();
+
+	// 背景画像の読み込み
+	background = LoadGraph("Resource/Images/BackGround.png");
+	// エラーチェック
+	if (background == -1)
+	{
+		throw("背景の画像がありません。");
+	}
 }
 
 // 更新処理
@@ -60,46 +68,76 @@ void Scene::Update()
 		}
 	}
 
-	// Zキーを押したら敵を生成する
-	if (InputControl::GetKeyDown(KEY_INPUT_Z))
-	{
-		CreateObject<BoxEnemy>(Vector2D(150.0f, 600.0f));
-	}
-	// Xキーを押したら敵を生成する
-	if (InputControl::GetKeyDown(KEY_INPUT_X))
-	{
-		CreateObject<WingEnemy>(Vector2D(300.0f, 600.0f));
-	}
-	// Cキーを押したら敵を生成する
-	if (InputControl::GetKeyDown(KEY_INPUT_C))
-	{
-		CreateObject<Harpy>(Vector2D(450.0f, 600.0f));
-	}
-	// Vキーを押したら敵を生成する
-	if (InputControl::GetKeyDown(KEY_INPUT_V))
-	{
-		CreateObject<GoldEnemy>(Vector2D(600.0f, 600.0f));
-	}
-	// Bキーを押したらエネミーバレットする
+	// UIを更新する
+	result->Update();
+
+	/*
+	// Bキーを押したらエネミーバレットを生成する
 	if (InputControl::GetKeyDown(KEY_INPUT_B))
 	{
 		CreateObject<EnemyBullet>(Vector2D(750.0f, 600.0f));
 	}
-	// Eキーを押したらプレイヤーバレットする
-	if (InputControl::GetKeyDown(KEY_INPUT_E))
+	*/
+
+	// SPACEキーを押したらプレイヤーバレットを生成する
+	if (BulletCount < 5)
 	{
-		CreateObject<PlayerBullet>(Vector2D(400.0f, 90.0f));
+		if (InputControl::GetKeyDown(KEY_INPUT_SPACE))
+		{
+			CreateObject<PlayerBullet>(Vector2D(Player::player_x + 0.0f, Player::player_y + 70.0f));
+			BulletCount++;
+		}
 	}
+	//敵に当たったら減らす
+	//BulletCount--;
+	
+	// 敵を生成する
+	if (EnemyCount < 10)
+	{
+		if ((GetRand(100000) % 100) && (GetRand(100000) % 100) == 0)
+		//if (GetRand(9) == 5)
+		{
+			switch (GetRand(3))
+			{
+			case 0:
+				CreateObject<BoxEnemy>(Vector2D(100.0f, 550.0f));
+				EnemyCount++;
+				break;
+			case 1:
+				CreateObject<WingEnemy>(Vector2D(100.0f, 480.0f));
+				EnemyCount++;
+				break;
+			case 2:
+				CreateObject<Harpy>(Vector2D(100.0f, 410.0f));
+				EnemyCount++;
+				break;
+			case 3:
+				CreateObject<GoldEnemy>(Vector2D(100.0f, 620.0f));
+				EnemyCount++;
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	// 敵を倒したときに数を減らす
+	//EnemyCount--;
 }
 
 // 描画処理
 void Scene::Draw() const
 {
+	// 背景の生成
+	DrawGraph(0, 0, background, TRUE);
+
 	// シーンに存在するオブジェクトの描画処理
 	for (GameObject* obj : objects)
 	{
 		obj->Draw();
 	}
+
+	// UIを描画する
+	result->Draw();
 }
 
 // 終了時処理
@@ -120,6 +158,9 @@ void Scene::Finalize()
 
 	// 動的配列の解放
 	objects.clear();
+
+	// UIを終了する
+	result->Finalize();
 }
 
 #ifdef D_PIVOT_CENTER

@@ -2,6 +2,10 @@
 #include "../../Utility/InputControl.h"
 #include "DxLib.h"
 
+// 静的メンバ変数宣言
+float Player::player_x = 320.0f;
+float Player::player_y = 150.0f;
+
 // コンストラクタ
 Player::Player() :animation_count(0), filp_flag(FALSE)
 {
@@ -44,13 +48,14 @@ void Player::Update()
 	Movement();
 	// アニメーション制御
 	AnimeControl();
+
 }
 
 // 描画処理
 void Player::Draw() const
 {
 	// プレイヤー画像の描画
-	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, filp_flag);
+	DrawRotaGraphF(location.x, location.y, 0.7, radian, image, TRUE, filp_flag);
 
 	// デバッグ用
 #if _DEBUG
@@ -88,11 +93,13 @@ void Player::Movement()
 	{
 		veloctiy.x += -1.0f;
 		filp_flag = TRUE;
+		player_x += veloctiy.x;
 	}
 	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
 	{
 		veloctiy.x += 1.0f;
 		filp_flag = FALSE;
+		player_x += veloctiy.x;
 	}
 	else
 	{

@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "Utility/InputControl.h"
 #include "Scene/Scene.h"
+#include "Scene/Result.h"
 
 // メイン関数(プログラムはここから始まります)
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
@@ -20,7 +21,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// ローカル変数定義
 	Scene* scene = new Scene();	// シーン情報
-	int result = 0;				// 終了状態情報
+	//Result* result = new Result();
+	int results = 0;				// 終了状態情報
 
 	// 描画先を裏画面から始めるように指定する
 	SetDrawScreen(DX_SCREEN_BACK);
@@ -29,6 +31,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	{
 		// シーンの初期化
 		scene->Initialize();
+
+		//result->Initialize();
 
 		// メインループ(ウィンドウの異常発生 or ESCキーが押されたら、ループ終了)
 		while (ProcessMessage() != -1 && CheckHitKey(KEY_INPUT_ESCAPE) != TRUE)
@@ -45,6 +49,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			// シーンの描画処理
 			scene->Draw();
 
+			//result->Draw();
+
 			// 裏画面の内容を表画面に反映する
 			ScreenFlip();
 		}
@@ -54,7 +60,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		// エラー情報をLog.txtに出力する
 		OutputDebugString(error_log);
 		// 異常状態に変更する
-		result = -1;
+		results = -1;
 	}
 
 	// シーン情報を削除する
@@ -69,5 +75,5 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	DxLib_End();
 
 	// 終了状態を通知
-	return result;
+	return results;
 }
