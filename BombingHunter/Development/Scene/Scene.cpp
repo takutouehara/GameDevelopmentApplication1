@@ -13,13 +13,14 @@
 #define D_PIVOT_CENTER
 
 // 静的メンバ変数宣言
-int Scene::EnemyCount = 0;
 int Scene::BulletCount = 0;
-// ローカル変数宣言
+int Scene::EnemyCount = 0;
+
+// 
 Result* result = new Result();
 
 // コンストラクタ
-Scene::Scene() :objects(),background(NULL)
+Scene::Scene() :objects(),background(NULL),FreamCount(0)
 {
 	
 }
@@ -71,14 +72,6 @@ void Scene::Update()
 	// UIを更新する
 	result->Update();
 
-	/*
-	// Bキーを押したらエネミーバレットを生成する
-	if (InputControl::GetKeyDown(KEY_INPUT_B))
-	{
-		CreateObject<EnemyBullet>(Vector2D(750.0f, 600.0f));
-	}
-	*/
-
 	// SPACEキーを押したらプレイヤーバレットを生成する
 	if (BulletCount < 5)
 	{
@@ -90,36 +83,44 @@ void Scene::Update()
 	}
 	//敵に当たったら減らす
 	//BulletCount--;
-	
-	// 敵を生成する
-	if (EnemyCount < 10)
+
+	// フレーム加算
+	FreamCount++;
+	// 110フレームなら
+	if (FreamCount >= 110)
 	{
-		if ((GetRand(100000) % 100) && (GetRand(100000) % 100) == 0)
-		//if (GetRand(9) == 5)
+		// カウントのリセット
+		FreamCount = 0;
+		
+		// 敵を生成する
+		if (EnemyCount < 10)
 		{
-			switch (GetRand(3))
-			{
-			case 0:
-				CreateObject<BoxEnemy>(Vector2D(100.0f, 550.0f));
-				EnemyCount++;
-				break;
-			case 1:
-				CreateObject<WingEnemy>(Vector2D(100.0f, 480.0f));
-				EnemyCount++;
-				break;
-			case 2:
-				CreateObject<Harpy>(Vector2D(100.0f, 410.0f));
-				EnemyCount++;
-				break;
-			case 3:
-				CreateObject<GoldEnemy>(Vector2D(100.0f, 620.0f));
-				EnemyCount++;
-				break;
-			default:
-				break;
-			}
+			//if (GetRand(1) == 1)
+			//{
+				switch (GetRand(3))
+				{
+				case 0:
+					CreateObject<BoxEnemy>(Vector2D(100.0f, 550.0f));
+					EnemyCount++;
+					break;
+				case 1:
+					CreateObject<WingEnemy>(Vector2D(100.0f, 480.0f));
+					EnemyCount++;
+					break;
+				case 2:
+					CreateObject<Harpy>(Vector2D(100.0f, 410.0f));
+					EnemyCount++;
+					break;
+				case 3:
+					CreateObject<GoldEnemy>(Vector2D(100.0f, 620.0f));
+					EnemyCount++;
+					break;
+				default:
+					break;
+				}
+			//}
 		}
-	}
+	}	
 	// 敵を倒したときに数を減らす
 	//EnemyCount--;
 }
@@ -138,6 +139,8 @@ void Scene::Draw() const
 
 	// UIを描画する
 	result->Draw();
+
+	DrawFormatString(0, 0, GetColor(255, 0, 0), "%d", EnemyCount);
 }
 
 // 終了時処理
@@ -148,7 +151,7 @@ void Scene::Finalize()
 	{
 		return;
 	}
-
+	
 	// 各オブジェクトを削除する
 	for (GameObject* obj : objects)
 	{
@@ -177,6 +180,8 @@ void Scene::HitCheckObject(GameObject* a, GameObject* b)
 		// 当たったことをオブジェクトに通知する
 		a->OnHitCollision(b);
 		b->OnHitCollision(a);
+
+		objects.erase(objects.begin() );
 	}
 }
 #else

@@ -1,4 +1,5 @@
 #include "BoxEnemy.h"
+#include "../../Scene/Scene.h"
 #include "DxLib.h"
 
 // コンストラクタ
@@ -78,13 +79,15 @@ void BoxEnemy::Finalize()
 	// 使用した画像を開放する
 	DeleteGraph(animation[0]);
 	DeleteGraph(animation[1]);
+
 }
 
 // 当たり判定通知処理
-void BoxEnemy::OnHitCollision(GameObject* hit_obhect)
+void BoxEnemy::OnHitCollision(GameObject* hit_object)
 {
-	// 当たった時の処理
-	//direction = 0.0f;
+	// 使用した画像を開放する
+	DeleteGraph(animation[0]);
+	DeleteGraph(animation[1]);
 }
 
 // 移動処理

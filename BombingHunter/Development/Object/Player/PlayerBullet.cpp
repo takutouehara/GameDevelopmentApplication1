@@ -84,16 +84,13 @@ void PlayerBullet::Finalize()
 }
 
 // 当たり判定通知処理
-void PlayerBullet::OnHitCollision(GameObject* hit_obhect)
+void PlayerBullet::OnHitCollision(GameObject* hit_object)
 {
 	// 当たった時の処理
 	direction = 0.0f;
 
 	// アニメーション制御
 	AnimeControl();
-
-	//DeleteGraph(animation[0]);
-	//DeleteGraph(animation[1]);
 }
 
 // 移動処理
@@ -104,7 +101,7 @@ void PlayerBullet::Movement()
 	{
 		direction.x *= -1.0f;
 	}
-	if (((location.y + direction.y) < box_size.y) || (720.0f - box_size.y) < (location.y + direction.y))
+	if (((location.y + direction.y) < box_size.y) || (675.0f - box_size.y) < (location.y + direction.y))
 	{
 		direction.y *= -1.0f;
 	}

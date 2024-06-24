@@ -23,7 +23,7 @@ public:
 	virtual void Finalize() override;	// I—¹ˆ—
 
 	// “–‚½‚è”»’è’Ê’mˆ—
-	virtual void OnHitCollision(GameObject* hit_obhect)override;
+	virtual void OnHitCollision(GameObject* hit_object)override;
 
 private:
 	// ˆÚ“®ˆ—

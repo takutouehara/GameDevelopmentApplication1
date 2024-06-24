@@ -1,5 +1,8 @@
 #include "Harpy.h"
+#include "../../Scene/Scene.h"
 #include "DxLib.h"
+
+Scene* scece = new Scene;
 
 // コンストラクタ
 Harpy::Harpy() :animation_count(0), direction(0.0f)
@@ -81,10 +84,13 @@ void Harpy::Finalize()
 }
 
 // 当たり判定通知処理
-void Harpy::OnHitCollision(GameObject* hit_obhect)
+void Harpy::OnHitCollision(GameObject* hit_object)
 {
-	// 当たった時の処理
-	//direction = 0.0f;
+	// 使用した画像を開放する
+	DeleteGraph(animation[0]);
+	DeleteGraph(animation[1]);
+
+	scece->EnemyCount--;
 }
 
 // 移動処理

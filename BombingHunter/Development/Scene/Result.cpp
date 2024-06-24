@@ -1,6 +1,10 @@
 #include "Result.h"
 #include "DxLib.h"
 
+// 静的メンバ変数宣言
+int Result::score = 0;
+int Result::highscore ;
+
 // コンストラクタ
 Result::Result() :animation_count(0), number_count_tp(1), number_count_op(0)
 {
@@ -38,14 +42,17 @@ void Result::Draw() const
 {
 	// 時計の描画
 	DrawGraph(10, 662, image[0], TRUE);
-	// スコアの描画
-	DrawRotaGraphF(300, 690, 2.5, 0.0, image[1], TRUE);
-	// ハイスコアの描画
-	DrawRotaGraphF(650, 690, 2.5, 0.0, image[2], TRUE);
-
 	// 時間の描画
 	DrawRotaGraphF(100, 690, 2.5, 0.0, number[number_count_tp], TRUE);
 	DrawRotaGraphF(140, 690, 2.5, 0.0, number[number_count_op], TRUE);
+
+	// スコアの描画
+	DrawRotaGraphF(300, 690, 2.5, 0.0, image[1], TRUE);
+	DrawFormatString(450, 690, GetColor(255, 0, 0), "%d", score);
+
+	// ハイスコアの描画
+	DrawRotaGraphF(650, 690, 2.5, 0.0, image[2], TRUE);
+	DrawFormatString(800, 690, GetColor(255, 0, 0), "%d", highscore);
 }
 
 // 終了時処理
@@ -59,6 +66,8 @@ void Result::Finalize()
 	{
 		DeleteGraph(number[j]);
 	}
+
+	//highscore = score;
 }
 
 // 格納処理
@@ -85,8 +94,8 @@ void Result::TimerControl()
 	// フレームカウントを加算する
 	animation_count++;
 
-	// 60フレーム目に到達したら
-	if (animation_count >= 60)
+	//110フレーム目に到達したら
+	if (animation_count >= 110)
 	{
 		// カウントのリセット
 		animation_count = 0;
@@ -97,11 +106,15 @@ void Result::TimerControl()
 		{
 			number_count_op = 9;
 
-			number_count_tp--;
+			if (number_count_tp != 0)
+			{
+				number_count_tp--;
+			}
 		}
 		else if (number_count_op == 0)
 		{
 			number_count_op = 0;
 		}
+		
 	}
 }

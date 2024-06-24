@@ -8,8 +8,7 @@ class Scene:public GameObject
 private:
 	std::vector<GameObject*> objects;
 	int background;			// 背景
-	static int BulletCount;	// 弾の出現数
-	static int EnemyCount;	// 敵の出現数
+	int FreamCount;			// フレームカウント
 
 public:
 	Scene();
@@ -19,6 +18,11 @@ public:
 	void Update();
 	void Draw()const;
 	void Finalize();
+
+	static int BulletCount;	// 弾の出現数
+	static int EnemyCount;	// 敵の出現数
+	//std::vector<GameObject*> objects;
+
 
 private:
 	// 当たり判定チェック処理

@@ -77,7 +77,7 @@ void Player::Finalize()
 }
 
 // “–‚½‚è”»’è’Ê’mˆ—
-void Player::OnHitCollision(GameObject* hit_obhect)
+void Player::OnHitCollision(GameObject* hit_object)
 {
 	// “–‚½‚Á‚½‚Ìˆ—
 }

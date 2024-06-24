@@ -81,7 +81,7 @@ void WingEnemy::Finalize()
 }
 
 // “–‚½‚è”»’è’Ê’mˆ—
-void WingEnemy::OnHitCollision(GameObject* hit_obhect)
+void WingEnemy::OnHitCollision(GameObject* hit_object)
 {
 	// “–‚½‚Á‚½‚Ìˆ—
 	//direction = 0.0f;

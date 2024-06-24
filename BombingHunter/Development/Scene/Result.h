@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 class Result
 {
 private:
@@ -8,6 +10,10 @@ private:
 	int number_count_tp;	// Numberカウントtp
 	int number_count_op;	// Numberカウントop
 	int animation_count;	// アニメーション時間
+
+public:
+	static int score;		// スコア
+	static int highscore;	// ハイスコア
 
 public:
 	Result();

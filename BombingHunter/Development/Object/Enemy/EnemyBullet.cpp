@@ -87,7 +87,7 @@ void EnemyBullet::Finalize()
 }
 
 // “–‚½‚è”»’è’Ê’mˆ—
-void EnemyBullet::OnHitCollision(GameObject* hit_obhect)
+void EnemyBullet::OnHitCollision(GameObject* hit_object)
 {
 	// “–‚½‚Á‚½‚Ìˆ—
 	direction = 0.0f;
