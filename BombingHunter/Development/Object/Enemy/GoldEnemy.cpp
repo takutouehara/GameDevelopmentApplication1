@@ -1,4 +1,6 @@
 #include "GoldEnemy.h"
+#include "../../Scene/Scene.h"
+#include "../../Scene/Result.h"
 #include "DxLib.h"
 
 // コンストラクタ
@@ -92,8 +94,12 @@ void GoldEnemy::Finalize()
 // 当たり判定通知処理
 void GoldEnemy::OnHitCollision(GameObject* hit_object)
 {
-	// 当たった時の処理
-	//direction = 0.0f;
+	// 使用した画像を開放する
+	DeleteGraph(animation[0]);
+	DeleteGraph(animation[1]);
+
+	// スコア加算
+	Result::score += 3000;
 }
 
 // 移動処理
@@ -123,7 +129,5 @@ void GoldEnemy::AnimeControl()
 	{
 		// カウントのリセット
 		animation_count = 0;
-
-
 	}
 }

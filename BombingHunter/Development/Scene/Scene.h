@@ -21,8 +21,6 @@ public:
 
 	static int BulletCount;	// 弾の出現数
 	static int EnemyCount;	// 敵の出現数
-	//std::vector<GameObject*> objects;
-
 
 private:
 	// 当たり判定チェック処理

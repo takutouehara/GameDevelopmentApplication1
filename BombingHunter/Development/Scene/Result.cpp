@@ -3,7 +3,7 @@
 
 // 静的メンバ変数宣言
 int Result::score = 0;
-int Result::highscore ;
+int Result::highscore;
 
 // コンストラクタ
 Result::Result() :animation_count(0), number_count_tp(1), number_count_op(0)
@@ -67,7 +67,7 @@ void Result::Finalize()
 		DeleteGraph(number[j]);
 	}
 
-	//highscore = score;
+	highscore = score;
 }
 
 // 格納処理

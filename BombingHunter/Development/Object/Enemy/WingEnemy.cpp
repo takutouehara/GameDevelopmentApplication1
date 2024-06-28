@@ -1,4 +1,6 @@
 #include "WingEnemy.h"
+#include "../../Scene/Scene.h"
+#include "../../Scene/Result.h"
 #include "DxLib.h"
 
 // コンストラクタ
@@ -83,8 +85,12 @@ void WingEnemy::Finalize()
 // 当たり判定通知処理
 void WingEnemy::OnHitCollision(GameObject* hit_object)
 {
-	// 当たった時の処理
-	//direction = 0.0f;
+	// 使用した画像を開放する
+	DeleteGraph(animation[0]);
+	DeleteGraph(animation[1]);
+
+	// スコア加算
+	Result::score += 1000;
 }
 
 // 移動処理

@@ -140,6 +140,8 @@ void Scene::Draw() const
 	// UIを描画する
 	result->Draw();
 
+
+	// (検証用)
 	DrawFormatString(0, 0, GetColor(255, 0, 0), "%d", EnemyCount);
 }
 
@@ -180,8 +182,6 @@ void Scene::HitCheckObject(GameObject* a, GameObject* b)
 		// 当たったことをオブジェクトに通知する
 		a->OnHitCollision(b);
 		b->OnHitCollision(a);
-
-		objects.erase(objects.begin() );
 	}
 }
 #else

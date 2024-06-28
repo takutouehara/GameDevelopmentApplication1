@@ -1,5 +1,6 @@
 #include "BoxEnemy.h"
 #include "../../Scene/Scene.h"
+#include "../../Scene/Result.h"
 #include "DxLib.h"
 
 // コンストラクタ
@@ -88,6 +89,9 @@ void BoxEnemy::OnHitCollision(GameObject* hit_object)
 	// 使用した画像を開放する
 	DeleteGraph(animation[0]);
 	DeleteGraph(animation[1]);
+
+	// スコア加算
+	Result::score += 1000;
 }
 
 // 移動処理

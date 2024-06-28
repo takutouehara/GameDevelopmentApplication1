@@ -1,5 +1,6 @@
 #include "Harpy.h"
 #include "../../Scene/Scene.h"
+#include "../../Scene/Result.h"
 #include "DxLib.h"
 
 Scene* scece = new Scene;
@@ -90,7 +91,8 @@ void Harpy::OnHitCollision(GameObject* hit_object)
 	DeleteGraph(animation[0]);
 	DeleteGraph(animation[1]);
 
-	scece->EnemyCount--;
+	// ƒXƒRƒA‰ÁZ
+	Result::score += 1000;
 }
 
 // ˆÚ“®ˆ—
