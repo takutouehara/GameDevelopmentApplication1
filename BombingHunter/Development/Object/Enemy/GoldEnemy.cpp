@@ -99,7 +99,7 @@ void GoldEnemy::OnHitCollision(GameObject* hit_object)
 	DeleteGraph(animation[1]);
 
 	// ƒXƒRƒA‰ÁZ
-	Result::score += 3000;
+	//Result::score += 3000;
 }
 
 // ˆÚ“®ˆ—

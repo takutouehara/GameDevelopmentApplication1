@@ -90,7 +90,7 @@ void WingEnemy::OnHitCollision(GameObject* hit_object)
 	DeleteGraph(animation[1]);
 
 	// ƒXƒRƒA‰ÁZ
-	Result::score += 1000;
+	//Result::score += 1000;
 }
 
 // ˆÚ“®ˆ—
